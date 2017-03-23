@@ -26,14 +26,16 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="unit tests"
-        - CMD="mvn install sonar:sonar --batch-mode --show-version --errors -Dsonar.host.url=https://sonarqube.com -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.organization=eclipse-collections"
+        - CMD="mvn install --batch-mode --show-version --errors"
 
     - jdk: oraclejdk8
       env:
         - DESC="compile jmh-tests and performance-tests"
         - CMD="mvn install --projects jmh-tests,performance-tests --also-make --activate-profiles all -DskipTests=true --batch-mode --show-version --errors"
 
-script: eval $CMD
+script:
+- eval $CMD
+- if [[ "$TRAVIS_EVENT_TYPE" == "cron" && DESC="unit tests" ]]; then mvn sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.organization=eclipse-collections ; fi
 
 cache:
   directories:
