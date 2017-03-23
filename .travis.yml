@@ -26,7 +26,7 @@ matrix:
     - jdk: oraclejdk8
       env:
         - DESC="unit tests"
-        - CMD="mvn install --batch-mode --show-version --errors"
+        - CMD="mvn install sonar:sonar --batch-mode --show-version --errors -Dsonar.host.url=https://sonarqube.com -Dsonar.login=${SONARQUBE_TOKEN} -Dsonar.organization=eclipse-collections"
 
     - jdk: oraclejdk8
       env:
