@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Git Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 'Download JDK'
         uses: sormuras/download-jdk@v1
         id: download-jdk
